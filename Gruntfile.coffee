@@ -4,12 +4,6 @@ portServe = 9259
 
 module.exports = (grunt) ->
 
-	aliasify = [ 'aliasify', do ->
-		replacements = {}
-		replacements["#{appCodename}-([^.]+)"] = './src/$1'
-		replacements: replacements
-	]
-
 	grunt.initConfig
 
 		autoprefixer:
@@ -28,7 +22,6 @@ module.exports = (grunt) ->
 					watch: true
 					browserifyOptions: { debug: true }
 					transform: [
-						aliasify
 						'hintify'
 						[ 'stringify', 'extensions': [ '.html' ] ]
 						'browserify-ngannotate'
@@ -37,7 +30,6 @@ module.exports = (grunt) ->
 			www:
 				files: '.tmp/bundle.js': [ 'src/index.js']
 				options: transform: [
-					aliasify
 					'hintify'
 					[ 'stringify', 'extensions': [ '.html' ], "minify": true, ]
 					'browserify-ngannotate'
